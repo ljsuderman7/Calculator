@@ -71,12 +71,70 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 if(x > 0) {
                     display = "-$display"
                 } else {
-                    display = display.drop(0)
+                    display = display.drop(1)
+                }
+            R.id.btnDecimal-> TODO()
+            R.id.btnDivide -> display += "/"
+            R.id.btnMultiply -> display += "*"
+            R.id.btnAdd -> display += "+"
+            R.id.btnSubtract -> display += "-"
+            R.id.btnEquals ->
+                if (display.contains('+')) {
+                    display = (x + y).toString()
+                }
+                else if (display.contains('-')){
+                    display = (x - y).toString()
+                }
+                else if (display.contains('/')){
+                    display = (x / y).toString()
+                }
+                else if(display.contains('*')) {
+                    display = (x * y).toString()
                 }
 
+        }
+        var operandPosition = 0
+        if (display.contains('+')) {
+            operandPosition = display.indexOf('+')
+            if (display.substring(operandPosition+1) == ""){
+                y = 0
+            }
+            else {
+                y = display.substring(operandPosition+1).toInt()
+            }
 
         }
-        x = display.toInt()
+        else if (display.contains('-')){
+            operandPosition = display.indexOf('-')
+            if (display.substring(operandPosition+1) == ""){
+                y = 0
+            }
+            else {
+                y = display.substring(operandPosition+1).toInt()
+            }
+        }
+        else if (display.contains('/')){
+            operandPosition = display.indexOf('/')
+            if (display.substring(operandPosition+1) == ""){
+                y = 0
+            }
+            else {
+                y = display.substring(operandPosition+1).toInt()
+            }
+        }
+        else if(display.contains('*')) {
+            operandPosition = display.indexOf('*')
+            if (display.substring(operandPosition+1) == ""){
+                y = 0
+            }
+            else {
+                y = display.substring(operandPosition+1).toInt()
+            }
+        }
+        else {
+            x = display.toInt()
+        }
+
         txtDisplay!!.text = display
     }
 }
