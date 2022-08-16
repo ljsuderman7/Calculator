@@ -3,10 +3,16 @@ package ca.lsuderman.calculator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
+
+    private var display = ""
+    private var x = 0
+    private var y = 0
+    private var txtDisplay:TextView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -28,61 +34,49 @@ class MainActivity : AppCompatActivity() {
         val btnDecimal = findViewById<Button>(R.id.btnDecimal)
         val btnNegative = findViewById<Button>(R.id.btnNegative)
         val btnEquals = findViewById<Button>(R.id.btnEquals)
-        val txtDisplay = findViewById<TextView>(R.id.txtDisplay)
+        txtDisplay = findViewById(R.id.txtDisplay)
 
-        var display = ""
-        var equation = 0;
-        var x = 0;
-        var y = 0;
+        btn0.setOnClickListener(this)
+        btn1.setOnClickListener(this)
+        btn2.setOnClickListener(this)
+        btn3.setOnClickListener(this)
+        btn4.setOnClickListener(this)
+        btn5.setOnClickListener(this)
+        btn6.setOnClickListener(this)
+        btn7.setOnClickListener(this)
+        btn8.setOnClickListener(this)
+        btn9.setOnClickListener(this)
+        btnAdd.setOnClickListener(this)
+        btnSubtract.setOnClickListener(this)
+        btnMultiply.setOnClickListener(this)
+        btnDecimal.setOnClickListener(this)
+        btnDivide.setOnClickListener(this)
+        btnNegative.setOnClickListener(this)
+        btnEquals.setOnClickListener(this)
+    }
 
-        btn0.setOnClickListener{
-            display += "0"
-            txtDisplay.setText(display)
+    override fun onClick(view: View?) {
+        when (view!!.id){
+            R.id.btn0-> display += "0"
+            R.id.btn1-> display += "1"
+            R.id.btn2-> display += "2"
+            R.id.btn3-> display += "3"
+            R.id.btn4-> display += "4"
+            R.id.btn5-> display += "5"
+            R.id.btn6-> display += "6"
+            R.id.btn7-> display += "7"
+            R.id.btn8-> display += "8"
+            R.id.btn9-> display += "9"
+            R.id.btnNegative->
+                if(x > 0) {
+                    display = "-$display"
+                } else {
+                    display = display.drop(0)
+                }
+
+
         }
-
-        btn1.setOnClickListener {
-            display += "1"
-            txtDisplay.setText(display)
-        }
-
-        btn2.setOnClickListener {
-            display += "2"
-            txtDisplay.setText(display)
-        }
-
-        btn3.setOnClickListener {
-            display += "3"
-            txtDisplay.setText(display)
-        }
-
-        btn4.setOnClickListener {
-            display += "4"
-            txtDisplay.setText(display)
-        }
-
-        btn5.setOnClickListener {
-            display += "5"
-            txtDisplay.setText(display)
-        }
-
-        btn6.setOnClickListener {
-            display += "6"
-            txtDisplay.setText(display)
-        }
-
-        btn7.setOnClickListener {
-            display += "7"
-            txtDisplay.setText(display)
-        }
-
-        btn8.setOnClickListener {
-            display += "8"
-            txtDisplay.setText(display)
-        }
-
-        btn9.setOnClickListener {
-            display += "9"
-            txtDisplay.setText(display)
-        }
+        x = display.toInt()
+        txtDisplay!!.text = display
     }
 }
